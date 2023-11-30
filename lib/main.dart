@@ -5,10 +5,12 @@ import 'pages/events.dart';
 import 'pages/settings.dart';
 
 void main() async {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -17,28 +19,29 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       darkTheme: ThemeData.dark(), // Use dark theme
-      themeMode: ThemeMode.system, // Use system theme mode (light or dark based on device settings)
-      home: MyHomePage(),
+      themeMode: ThemeMode
+          .system, // Use system theme mode (light or dark based on device settings)
+      home: const MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
+  const MyHomePage({super.key});
+
   @override
-  
+  // ignore: library_private_types_in_public_api
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  List<Widget> _widgetOptions = <Widget>[
+  final List<Widget> _widgetOptions = <Widget>[
     // Add your pages/screens here
-    Page1(
-      balance: -199.50
-    ),
-    Page2(),
-    Page3(),
+    const Page1(balance: -199.50),
+    const Page2(),
+    const Page3(),
   ];
 
   void _onItemTapped(int index) {
@@ -51,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Magdloser Ultras Register'),
+        title: const Text('Magdloser Ultras Register'),
       ),
       body: Center(
         child: _widgetOptions.elementAt(_selectedIndex),
@@ -78,4 +81,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-

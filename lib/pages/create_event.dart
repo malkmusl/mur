@@ -1,5 +1,8 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 
+// ignore: use_key_in_widget_constructors
 class CreateEvent extends StatefulWidget {
   @override
   _CreateEventState createState() => _CreateEventState();
@@ -28,7 +31,7 @@ class _CreateEventState extends State<CreateEvent> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create new Event'),
+        title: const Text('Create new Event'),
       ),
       body: Stack(
         children: <Widget>[
@@ -36,21 +39,22 @@ class _CreateEventState extends State<CreateEvent> {
             child: Form(
               key: _formKey,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Column(
                   children: <Widget>[
                     TextFormField(
-                      decoration: InputDecoration(labelText: 'Enter Event name'),
+                      decoration:
+                          const InputDecoration(labelText: 'Enter Event name'),
                       onChanged: (value) {
                         setState(() {
                           eventName = value;
                         });
                       },
                     ),
-                    
                     ListTile(
-                      title: Text('Date: ${selectedDate.toLocal().toString().split(' ')[0]}'), // Remove time from date
-                      trailing: Icon(Icons.keyboard_arrow_down),
+                      title: Text(
+                          'Date: ${selectedDate.toLocal().toString().split(' ')[0]}'), // Remove time from date
+                      trailing: const Icon(Icons.keyboard_arrow_down),
                       onTap: () async {
                         final DateTime? picked = await showDatePicker(
                           context: context,
@@ -58,31 +62,34 @@ class _CreateEventState extends State<CreateEvent> {
                           firstDate: DateTime(2015, 8),
                           lastDate: DateTime(2101),
                         );
-                        if (picked != null && picked != selectedDate)
+                        if (picked != null && picked != selectedDate) {
                           setState(() {
                             selectedDate = picked;
                           });
+                        }
                       },
                     ),
                     ListTile(
                       title: Text('Time: ${selectedTime.format(context)}'),
-                      trailing: Icon(Icons.keyboard_arrow_down),
+                      trailing: const Icon(Icons.keyboard_arrow_down),
                       onTap: () async {
                         final TimeOfDay? picked = await showTimePicker(
                           context: context,
                           initialTime: selectedTime,
                         );
-                        if (picked != null && picked != selectedTime)
+                        if (picked != null && picked != selectedTime) {
                           setState(() {
                             selectedTime = picked;
                           });
+                        }
                       },
                     ),
-                    Center(child: Text('Orga')),
+                    const Center(child: Text('Orga')),
                     if (showOrgaInput)
                       TextFormField(
                         controller: orgaController,
-                        decoration: InputDecoration(labelText: 'Enter Orga name'),
+                        decoration:
+                            const InputDecoration(labelText: 'Enter Orga name'),
                         onFieldSubmitted: (value) {
                           setState(() {
                             orga.add(value);
@@ -92,7 +99,7 @@ class _CreateEventState extends State<CreateEvent> {
                         },
                       ),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         setState(() {
                           showOrgaInput = true;
@@ -100,39 +107,42 @@ class _CreateEventState extends State<CreateEvent> {
                       },
                     ),
                     ...orga.map((String orgaName) => GestureDetector(
-                      onTap: () async {
-                        final newName = await showDialog<String>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text('Edit name'),
-                            content: TextFormField(
-                              initialValue: orgaName,
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () => Navigator.of(context).pop(),
+                          onTap: () async {
+                            final newName = await showDialog<String>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Edit name'),
+                                content: TextFormField(
+                                  initialValue: orgaName,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text('Cancel'),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: () => Navigator.of(context)
+                                        .pop(orgaController.text),
+                                  ),
+                                ],
                               ),
-                              TextButton(
-                                child: Text('OK'),
-                                onPressed: () => Navigator.of(context).pop(orgaController.text),
-                              ),
-                            ],
-                          ),
-                        );
-                        if (newName != null) {
-                          setState(() {
-                            orga[orga.indexOf(orgaName)] = newName;
-                          });
-                        }
-                      },
-                      child: ListTile(title: Text(orgaName)),
-                    )),
-                    Center(child: Text('Guests')),
+                            );
+                            if (newName != null) {
+                              setState(() {
+                                orga[orga.indexOf(orgaName)] = newName;
+                              });
+                            }
+                          },
+                          child: ListTile(title: Text(orgaName)),
+                        )),
+                    const Center(child: Text('Guests')),
                     if (showGuestInput)
                       TextFormField(
                         controller: guestController,
-                        decoration: InputDecoration(labelText: 'Enter Guest name'),
+                        decoration: const InputDecoration(
+                            labelText: 'Enter Guest name'),
                         onFieldSubmitted: (value) {
                           setState(() {
                             guests.add(value);
@@ -142,7 +152,7 @@ class _CreateEventState extends State<CreateEvent> {
                         },
                       ),
                     IconButton(
-                      icon: Icon(Icons.add),
+                      icon: const Icon(Icons.add),
                       onPressed: () {
                         setState(() {
                           showGuestInput = true;
@@ -150,34 +160,36 @@ class _CreateEventState extends State<CreateEvent> {
                       },
                     ),
                     ...guests.map((String guestName) => GestureDetector(
-                      onTap: () async {
-                        final newName = await showDialog<String>(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                            title: Text('Edit name'),
-                            content: TextFormField(
-                              initialValue: guestName,
-                            ),
-                            actions: [
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () => Navigator.of(context).pop(),
+                          onTap: () async {
+                            final newName = await showDialog<String>(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: const Text('Edit name'),
+                                content: TextFormField(
+                                  initialValue: guestName,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    child: const Text('Cancel'),
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(),
+                                  ),
+                                  TextButton(
+                                    child: const Text('OK'),
+                                    onPressed: () => Navigator.of(context)
+                                        .pop(guestController.text),
+                                  ),
+                                ],
                               ),
-                              TextButton(
-                                child: Text('OK'),
-                                onPressed: () => Navigator.of(context).pop(guestController.text),
-                              ),
-                            ],
-                          ),
-                        );
-                        if (newName != null) {
-                          setState(() {
-                            guests[guests.indexOf(guestName)] = newName;
-                          });
-                        }
-                      },
-                      child: ListTile(title: Text(guestName)),
-                    )),
+                            );
+                            if (newName != null) {
+                              setState(() {
+                                guests[guests.indexOf(guestName)] = newName;
+                              });
+                            }
+                          },
+                          child: ListTile(title: Text(guestName)),
+                        )),
                   ],
                 ),
               ),
@@ -191,11 +203,11 @@ class _CreateEventState extends State<CreateEvent> {
                 onPressed: () {
                   // Save event
                 },
-                child: Icon(Icons.save),
                 backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(16.0)),
                 ),
+                child: const Icon(Icons.save),
               ),
             ),
           ),

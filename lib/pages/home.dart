@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class Page1 extends StatelessWidget {
   final double balance;
 
-  Page1({required this.balance});
+  const Page1({super.key, required this.balance});
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(
+        const Text(
           'Current Balance',
           style: TextStyle(fontSize: 30.0),
         ),
